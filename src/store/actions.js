@@ -4,6 +4,8 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 export const authenticated = createAction('authenticated');
 export const isAuthenticating = createAction('isAuthenticating');
+export const authErrors = createAction('authErrors');
+export const resetAuth = createAction('resetAuth');
 
 export const authenticate = (path, data) => async dispatch => {
   try {
@@ -17,8 +19,10 @@ export const authenticate = (path, data) => async dispatch => {
     if (res.status === 200) {
       await AsyncStorage.setItem('token', resData.token);
       dispatch(authenticated(true));
+    } else {
+      dispatch(authErrors([resData.message]));
     }
-    // dispatch(isAuthenticating(false));
+    dispatch(isAuthenticating(false));
   } catch (err) {
     console.log(err);
   }

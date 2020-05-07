@@ -7,8 +7,9 @@ import {
   Text,
   ActivityIndicator,
 } from 'react-native';
-import {authenticate} from '../../store/actions';
+import {authenticate, resetAuth} from '../../store/actions';
 import {
+  colorDanger,
   colorBlack,
   colorWhite,
   colorIndigo,
@@ -28,6 +29,7 @@ const Register = props => {
   } = props;
   const dispatch = useDispatch();
   const isAuthenticating = useSelector(state => state.isAuthenticating);
+  const authErrors = useSelector(state => state.authErrors);
 
   const submit = async () => {
     dispatch(authenticate(authPath, formData));
@@ -39,6 +41,17 @@ const Register = props => {
         <View style={styles.form}>
           <Text style={styles.heading}>{title}</Text>
           <View>{children}</View>
+          {Boolean(authErrors.length) && (
+            <>
+              {authErrors.map((msg, i) => {
+                return (
+                  <Text key={i} style={styles.error}>
+                    {msg}
+                  </Text>
+                );
+              })}
+            </>
+          )}
           <TouchableOpacity
             activeOpacity={0.5}
             style={styles.button}
@@ -50,7 +63,10 @@ const Register = props => {
           </TouchableOpacity>
           <Text
             style={styles.navText}
-            onPress={() => navigation.navigate(navScreen)}>
+            onPress={() => {
+              dispatch(resetAuth());
+              navigation.navigate(navScreen);
+            }}>
             {navText}
           </Text>
         </View>
@@ -110,6 +126,11 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     fontSize: 20,
     marginRight: 5,
+  },
+  error: {
+    color: colorDanger.lighten(0.3).toString(),
+    marginBottom: 5,
+    textTransform: 'capitalize',
   },
 });
 
