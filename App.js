@@ -27,6 +27,18 @@ const Home = () => {
   );
 };
 
+const config = {
+  animation: 'spring',
+  config: {
+    stiffness: 1000,
+    damping: 500,
+    mass: 10,
+    overshootClamping: true,
+    restDisplacementThreshold: 0.01,
+    restSpeedThreshold: 0.01,
+  },
+};
+
 const App = () => {
   const [isLoading, setLoading] = useState(true);
 
@@ -51,7 +63,15 @@ const App = () => {
         translucent={false}
         barStyle="dark-content"
       />
-      <Stack.Navigator initialRouteName="Signin">
+      <Stack.Navigator
+        mode="modal"
+        screenOptions={{
+          transitionSpec: {
+            open: config,
+            close: config,
+          },
+        }}
+        initialRouteName="Signin">
         {!isAuthenticated ? (
           <>
             <Stack.Screen name="Register" component={Register} />

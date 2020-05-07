@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
   input: {
     paddingHorizontal: 12,
     fontSize: 16,
-    borderColor: colorBlack.fade(0.7),
+    borderColor: colorBlack.fade(0.8),
     borderWidth: 1,
     borderRadius: 4,
     marginBottom: 15,

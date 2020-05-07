@@ -1,8 +1,19 @@
 import React from 'react';
-import {useDispatch} from 'react-redux';
-import {StyleSheet, View, Text, Button} from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
+import {
+  StyleSheet,
+  View,
+  TouchableOpacity,
+  Text,
+  ActivityIndicator,
+} from 'react-native';
 import {authenticate} from '../../store/actions';
-import {colorBlack, colorWhite, colorPrimary} from '../../util/styleVars';
+import {
+  colorBlack,
+  colorWhite,
+  colorIndigo,
+  colorPrimary,
+} from '../../util/styleVars';
 
 const Register = props => {
   const {
@@ -16,6 +27,7 @@ const Register = props => {
     authPath,
   } = props;
   const dispatch = useDispatch();
+  const isAuthenticating = useSelector(state => state.isAuthenticating);
 
   const submit = async () => {
     dispatch(authenticate(authPath, formData));
@@ -27,7 +39,15 @@ const Register = props => {
         <View style={styles.form}>
           <Text style={styles.heading}>{title}</Text>
           <View>{children}</View>
-          <Button title={btnTitle} onPress={submit} color="black" />
+          <TouchableOpacity
+            activeOpacity={0.5}
+            style={styles.button}
+            onPress={!isAuthenticating ? submit : () => {}}>
+            <Text style={styles.btnTitle}>{btnTitle}</Text>
+            {isAuthenticating && (
+              <ActivityIndicator size="small" color={colorWhite.toString()} />
+            )}
+          </TouchableOpacity>
           <Text
             style={styles.navText}
             onPress={() => navigation.navigate(navScreen)}>
@@ -50,7 +70,7 @@ const styles = StyleSheet.create({
     flex: 0.8,
     padding: 15,
     borderRadius: 4,
-    shadowColor: '#000',
+    shadowColor: colorBlack.toString(),
     shadowOffset: {
       width: 0,
       height: 1,
@@ -60,19 +80,36 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   heading: {
-    fontWeight: '100',
+    fontWeight: '700',
     fontSize: 30,
     textAlign: 'center',
-    color: colorWhite.lighten(0.5).toString(),
-    backgroundColor: colorBlack.toString(),
-    marginBottom: 15,
+    color: colorPrimary.toString(),
+    marginBottom: 20,
+    borderColor: colorPrimary.toString(),
+    borderBottomWidth: 1,
     paddingVertical: 10,
-    borderRadius: 4,
+    paddingBottom: 20,
   },
   navText: {
-    marginTop: 5,
+    marginTop: 20,
     color: colorPrimary.toString(),
     fontWeight: '700',
+  },
+  button: {
+    backgroundColor: colorIndigo.toString(),
+    borderRadius: 3,
+    height: 50,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  btnTitle: {
+    textAlign: 'center',
+    textTransform: 'uppercase',
+    color: colorWhite.toString(),
+    fontWeight: '700',
+    fontSize: 20,
+    marginRight: 5,
   },
 });
 

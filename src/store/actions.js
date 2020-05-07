@@ -3,9 +3,11 @@ import {API_URL} from 'react-native-dotenv';
 import AsyncStorage from '@react-native-community/async-storage';
 
 export const authenticated = createAction('authenticated');
+export const isAuthenticating = createAction('isAuthenticating');
 
 export const authenticate = (path, data) => async dispatch => {
   try {
+    dispatch(isAuthenticating(true));
     const res = await fetch(API_URL + path, {
       method: 'POST',
       headers: {'content-type': 'application/json'},
@@ -16,6 +18,7 @@ export const authenticate = (path, data) => async dispatch => {
       await AsyncStorage.setItem('token', resData.token);
       dispatch(authenticated(true));
     }
+    // dispatch(isAuthenticating(false));
   } catch (err) {
     console.log(err);
   }
