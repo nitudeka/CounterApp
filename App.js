@@ -6,7 +6,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import AsyncStorage from '@react-native-community/async-storage';
 import store from './src/store/store';
-import {authenticated} from './src/store/actions';
+import {authenticated, signout} from './src/store/actions';
 import {colorWhite} from './src/util/styleVars';
 import Register from './src/components/forms/Register';
 import Signin from './src/components/forms/Signin';
@@ -15,9 +15,14 @@ import SplashScreen from './src/components/SplashScreen';
 const Stack = createStackNavigator();
 
 const Home = () => {
+  const dispatch = useDispatch();
+  const clicked = () => {
+    dispatch(signout());
+  };
+
   return (
     <View>
-      <Text>Authenticated</Text>
+      <Text onPress={clicked}>Authenticated</Text>
     </View>
   );
 };
@@ -29,8 +34,10 @@ const App = () => {
   const isAuthenticated = useSelector(state => state.authenticated);
 
   useEffect(() => {
-    AsyncStorage.getItem('token').then(() => {
-      dispatch(authenticated(true));
+    AsyncStorage.getItem('token').then(token => {
+      if (token) {
+        dispatch(authenticated(true));
+      }
       setLoading(false);
     });
   });

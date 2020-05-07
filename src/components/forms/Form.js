@@ -1,5 +1,7 @@
 import React from 'react';
+import {useDispatch} from 'react-redux';
 import {StyleSheet, View, Text, Button} from 'react-native';
+import {authenticate} from '../../store/actions';
 import {colorBlack, colorWhite, colorPrimary} from '../../util/styleVars';
 
 const Register = props => {
@@ -10,8 +12,14 @@ const Register = props => {
     navigation,
     navText,
     navScreen,
-    submit,
+    formData,
+    authPath,
   } = props;
+  const dispatch = useDispatch();
+
+  const submit = async () => {
+    dispatch(authenticate(authPath, formData));
+  };
 
   return (
     <View style={styles.container}>
