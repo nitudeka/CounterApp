@@ -9,8 +9,6 @@ const Signin = ({navigation}) => {
   return (
     <Form
       navigation={navigation}
-      navText="New user?"
-      navScreen="Register"
       title="Sign In"
       authPath="app/user/signin"
       formData={{username, password}}

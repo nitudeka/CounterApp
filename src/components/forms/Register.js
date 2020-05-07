@@ -10,8 +10,6 @@ const Register = ({navigation}) => {
   return (
     <Form
       navigation={navigation}
-      navText="Existing user?"
-      navScreen="Signin"
       title="Register"
       authPath="app/user/signup"
       formData={{email, username, password}}

@@ -7,7 +7,7 @@ import {
   Text,
   ActivityIndicator,
 } from 'react-native';
-import {authenticate, resetAuth} from '../../store/actions';
+import {authenticate} from '../../store/actions';
 import {
   colorDanger,
   colorBlack,
@@ -17,16 +17,7 @@ import {
 } from '../../util/styleVars';
 
 const Register = props => {
-  const {
-    title,
-    btnTitle,
-    children,
-    navigation,
-    navText,
-    navScreen,
-    formData,
-    authPath,
-  } = props;
+  const {title, btnTitle, children, formData, authPath} = props;
   const dispatch = useDispatch();
   const isAuthenticating = useSelector(state => state.isAuthenticating);
   const authErrors = useSelector(state => state.authErrors);
@@ -61,14 +52,6 @@ const Register = props => {
               <ActivityIndicator size="small" color={colorWhite.toString()} />
             )}
           </TouchableOpacity>
-          <Text
-            style={styles.navText}
-            onPress={() => {
-              dispatch(resetAuth());
-              navigation.navigate(navScreen);
-            }}>
-            {navText}
-          </Text>
         </View>
       </View>
     </View>
@@ -105,11 +88,6 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     paddingVertical: 10,
     paddingBottom: 20,
-  },
-  navText: {
-    marginTop: 20,
-    color: colorPrimary.toString(),
-    fontWeight: '700',
   },
   button: {
     backgroundColor: colorIndigo.toString(),

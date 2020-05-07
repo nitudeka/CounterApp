@@ -11,6 +11,7 @@ import {colorWhite} from './src/util/styleVars';
 import Register from './src/components/forms/Register';
 import Signin from './src/components/forms/Signin';
 import SplashScreen from './src/components/SplashScreen';
+import DefaultScreen from './src/components/DefaultScreen';
 
 const Stack = createStackNavigator();
 
@@ -32,7 +33,7 @@ const config = {
   config: {
     stiffness: 1000,
     damping: 500,
-    mass: 10,
+    mass: 3,
     overshootClamping: true,
     restDisplacementThreshold: 0.01,
     restSpeedThreshold: 0.01,
@@ -70,10 +71,14 @@ const App = () => {
             open: config,
             close: config,
           },
-        }}
-        initialRouteName="Signin">
+        }}>
         {!isAuthenticated ? (
           <>
+            <Stack.Screen
+              options={{headerShown: false}}
+              name="DefaultScreen"
+              component={DefaultScreen}
+            />
             <Stack.Screen name="Register" component={Register} />
             <Stack.Screen name="Signin" component={Signin} />
           </>
