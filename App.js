@@ -10,6 +10,7 @@ import {authenticated} from './src/store/actions';
 import {colorWhite} from './src/util/styleVars';
 import Register from './src/components/forms/Register';
 import Signin from './src/components/forms/Signin';
+import SplashScreen from './src/components/SplashScreen';
 
 const Stack = createStackNavigator();
 
@@ -34,9 +35,7 @@ const App = () => {
     });
   });
 
-  if (isLoading) {
-    return <Text>Loading</Text>;
-  }
+  if (isLoading) return <SplashScreen />;
 
   return (
     <NavigationContainer>
