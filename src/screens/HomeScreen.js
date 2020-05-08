@@ -1,15 +1,21 @@
 import React from 'react';
-import {View, StyleSheet, ScrollView} from 'react-native';
+import {View, StyleSheet, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {colorPrimary, colorWhite, bottomNavHeight} from '../util/styleVars';
 
-const Home = () => {
+const Home = ({navigation}) => {
+  const add = () => {
+    navigation.navigate('NewExpense');
+  };
+
   return (
     <View style={{flex: 1}}>
-      <View style={styles.addIcon}>
+      <TouchableOpacity
+        activeOpacity={0.5}
+        onPress={add}
+        style={styles.addIcon}>
         <Icon name="plus" color={colorWhite.toString()} size={30} />
-      </View>
-      <ScrollView />
+      </TouchableOpacity>
     </View>
   );
 };

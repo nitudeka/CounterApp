@@ -7,9 +7,10 @@ import {
 
 // Screens
 import DefaultScreen from '../screens/DefaultScreen';
-import HomeScreen from '../screens/HomeScreen';
 import Register from '../components/forms/Register';
 import Signin from '../components/forms/Signin';
+import HomeScreen from '../screens/HomeScreen';
+import NewExpense from '../screens/NewExpense';
 
 const Stack = createStackNavigator();
 
@@ -40,6 +41,7 @@ const AuthScreens = (
 const ProtectedScreens = (
   <>
     <Stack.Screen name="HomeScreen" component={HomeScreen} />
+    <Stack.Screen name="NewExpense" component={NewExpense} />
   </>
 );
 
