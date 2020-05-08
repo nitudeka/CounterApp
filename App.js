@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {Provider, useSelector, useDispatch} from 'react-redux';
-import {StatusBar, View} from 'react-native';
+import {StatusBar} from 'react-native';
 import 'react-native-gesture-handler';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
@@ -12,7 +12,9 @@ import Register from './src/components/forms/Register';
 import Signin from './src/components/forms/Signin';
 import SplashScreen from './src/screens/SplashScreen';
 import DefaultScreen from './src/screens/DefaultScreen';
-import BottomNavbar from './src/components/navbar/BottomNavbar';
+import BottomNavbar, {
+  navigationRef,
+} from './src/components/navbar/BottomNavbar';
 import HomeScreen from './src/screens/HomeScreen';
 
 const Stack = createStackNavigator();
@@ -47,7 +49,7 @@ const App = () => {
   if (isLoading) return <SplashScreen />;
 
   return (
-    <NavigationContainer>
+    <NavigationContainer ref={navigationRef}>
       <StatusBar
         backgroundColor={colorWhite.toString()}
         translucent={false}
@@ -77,7 +79,7 @@ const App = () => {
           </>
         )}
       </Stack.Navigator>
-      <BottomNavbar />
+      {isAuthenticated && <BottomNavbar />}
     </NavigationContainer>
   );
 };

@@ -1,12 +1,20 @@
-import React from 'react';
+import React, {createRef} from 'react';
 import {View, StyleSheet, Dimensions} from 'react-native';
 import Button from './Button';
+import {colorPrimary, colorWhite} from '../../util/styleVars';
+
+export const navigationRef = createRef();
 
 const BottomNavbar = () => {
   return (
     <View style={styles.container}>
       <Button iconName="home" label="Home" screenName="HomeScreen" />
-      <Button iconName="sign-out" label="Logout" screenName="Logout" />
+      <Button
+        signoutBtn
+        iconName="sign-out"
+        label="Logout"
+        screenName="Logout"
+      />
     </View>
   );
 };
@@ -21,8 +29,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-around',
-    backgroundColor: '#007bff',
-    color: '#fff',
+    backgroundColor: colorPrimary.toString(),
+    color: colorWhite.toString(),
   },
 });
 

@@ -1,19 +1,29 @@
 import React from 'react';
 import {TouchableOpacity, Text, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
+import {signout, activeScreen} from '../../store/actions';
+import {navigationRef} from './BottomNavbar';
 import {colorPrimary, bottomNavHeight, colorWhite} from '../../util/styleVars';
 
-const Button = ({label, iconName, screenName}) => {
-  const activeScreen = useSelector(state => state.activeScreen);
+const Button = ({label, iconName, screenName, signoutBtn}) => {
+  const dispatch = useDispatch();
+  const activeScreenName = useSelector(state => state.activeScreen);
+
+  const handlePress = () => {
+    if (signoutBtn) return dispatch(signout());
+    navigationRef.current?.navigate(screenName);
+    dispatch(activeScreen(screenName));
+  };
 
   return (
     <TouchableOpacity
       activeOpacity={0.5}
+      onPress={handlePress}
       style={{
         ...styles.container,
         backgroundColor:
-          activeScreen === screenName
+          activeScreenName === screenName
             ? colorPrimary.darken(0.2).toString()
             : colorPrimary.toString(),
       }}>
@@ -23,7 +33,6 @@ const Button = ({label, iconName, screenName}) => {
   );
 };
 
-// activeScreen
 const styles = StyleSheet.create({
   container: {
     height: bottomNavHeight,
