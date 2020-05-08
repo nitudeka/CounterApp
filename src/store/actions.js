@@ -10,6 +10,7 @@ export const resetAuth = createAction('resetAuth');
 export const authenticate = (path, data) => async dispatch => {
   try {
     dispatch(isAuthenticating(true));
+    dispatch(authErrors([]));
     const res = await fetch(API_URL + path, {
       method: 'POST',
       headers: {'content-type': 'application/json'},
@@ -24,7 +25,8 @@ export const authenticate = (path, data) => async dispatch => {
     }
     dispatch(isAuthenticating(false));
   } catch (err) {
-    console.log(err);
+    dispatch(isAuthenticating(false));
+    dispatch(authErrors(['Something happened']));
   }
 };
 

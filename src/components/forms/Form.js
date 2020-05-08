@@ -108,7 +108,6 @@ const styles = StyleSheet.create({
   error: {
     color: colorDanger.lighten(0.3).toString(),
     marginBottom: 5,
-    textTransform: 'capitalize',
   },
 });
 
