@@ -4,33 +4,38 @@ import {useDispatch} from 'react-redux';
 import {resetAuth} from '../store/actions';
 import {colorPrimary, colorWhite, colorBlack} from '../util/styleVars';
 
-const DefaultScreen = ({navigation}) => {
+const Button = ({navigation, screenName, btnText, backgroundColor}) => {
   const dispatch = useDispatch();
 
   return (
+    <TouchableOpacity
+      activeOpacity={0.5}
+      onPress={() => {
+        dispatch(resetAuth());
+        navigation.navigate(screenName);
+      }}
+      style={[styles.btn, {backgroundColor: backgroundColor}]}>
+      <Text style={styles.btnText}>{btnText}</Text>
+    </TouchableOpacity>
+  );
+};
+
+const DefaultScreen = ({navigation}) => {
+  return (
     <View style={styles.default}>
       <View style={styles.container}>
-        <TouchableOpacity
-          activeOpacity={0.5}
-          onPress={() => {
-            dispatch(resetAuth());
-            navigation.navigate('Register');
-          }}
-          style={styles.btn}>
-          <Text style={styles.btnText}>Register</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          activeOpacity={0.5}
-          onPress={() => {
-            dispatch(resetAuth());
-            navigation.navigate('Signin');
-          }}
-          style={{
-            ...styles.btn,
-            backgroundColor: colorBlack.fade(0.2),
-          }}>
-          <Text style={styles.btnText}>Signin</Text>
-        </TouchableOpacity>
+        <Button
+          backgroundColor={colorPrimary.toString()}
+          navigation={navigation}
+          screenName="Register"
+          btnText="Register"
+        />
+        <Button
+          backgroundColor={colorBlack.toString()}
+          navigation={navigation}
+          screenName="Signin"
+          btnText="Signin"
+        />
       </View>
     </View>
   );
@@ -52,7 +57,6 @@ const styles = StyleSheet.create({
   btn: {
     flex: 0.9,
     flexDirection: 'row',
-    backgroundColor: colorPrimary.toString(),
     borderRadius: 5,
     marginBottom: 10,
     justifyContent: 'center',

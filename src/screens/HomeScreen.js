@@ -1,16 +1,9 @@
 import React from 'react';
-import {View, Text, StyleSheet, ScrollView} from 'react-native';
-import {useDispatch} from 'react-redux';
+import {View, StyleSheet, ScrollView} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {signout} from '../store/actions';
 import {colorPrimary, colorWhite, bottomNavHeight} from '../util/styleVars';
 
 const Home = () => {
-  const dispatch = useDispatch();
-  const clicked = () => {
-    dispatch(signout());
-  };
-
   return (
     <View style={{flex: 1}}>
       <View style={styles.addIcon}>

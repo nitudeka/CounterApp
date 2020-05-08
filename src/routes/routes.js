@@ -22,7 +22,7 @@ const config = {
   },
 };
 
-const AuthScreens = () => (
+const AuthScreens = (
   <>
     <Stack.Screen
       options={{headerShown: false}}
@@ -34,7 +34,7 @@ const AuthScreens = () => (
   </>
 );
 
-const ProtectedScreens = () => (
+const ProtectedScreens = (
   <>
     <Stack.Screen name="HomeScreen" component={HomeScreen} />
   </>
@@ -52,7 +52,7 @@ const MainRoute = () => {
           close: config,
         },
       }}>
-      {isAuthenticated ? <ProtectedScreens /> : <AuthScreens />}
+      {isAuthenticated ? ProtectedScreens : AuthScreens}
     </Stack.Navigator>
   );
 };

@@ -9,8 +9,10 @@ import {colorPrimary, bottomNavHeight, colorWhite} from '../../util/styleVars';
 const Button = ({label, iconName, screenName, signoutBtn}) => {
   const dispatch = useDispatch();
   const activeScreenName = useSelector(state => state.activeScreen);
-  const bgColor = activeScreenName === screenName ? colorPrimary.darken(0.2).toString()
-  : colorPrimary.toString(),
+  const bgColor =
+    activeScreenName === screenName
+      ? colorPrimary.darken(0.2).toString()
+      : colorPrimary.toString();
 
   const handlePress = () => {
     if (signoutBtn) return dispatch(signout());
