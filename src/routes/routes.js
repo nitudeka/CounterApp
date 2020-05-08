@@ -1,6 +1,9 @@
 import React from 'react';
 import {useSelector} from 'react-redux';
-import {createStackNavigator} from '@react-navigation/stack';
+import {
+  createStackNavigator,
+  CardStyleInterpolators,
+} from '@react-navigation/stack';
 
 // Screens
 import DefaultScreen from '../screens/DefaultScreen';
@@ -47,6 +50,7 @@ const MainRoute = () => {
     <Stack.Navigator
       mode="modal"
       screenOptions={{
+        cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
         transitionSpec: {
           open: config,
           close: config,

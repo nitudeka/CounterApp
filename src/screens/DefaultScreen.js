@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     backgroundColor: colorWhite.toString(),
   },
   container: {
-    height: 100,
+    height: 130,
     flex: 0.9,
   },
   btn: {
@@ -61,6 +61,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     justifyContent: 'center',
     alignItems: 'center',
+    elevation: 6,
   },
   btnText: {
     fontWeight: '500',
