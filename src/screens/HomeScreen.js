@@ -3,7 +3,7 @@ import {View, Text, StyleSheet, ScrollView} from 'react-native';
 import {useDispatch} from 'react-redux';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {signout} from '../store/actions';
-import {colorPrimary, bottomNavHeight} from '../util/styleVars';
+import {colorPrimary, colorWhite, bottomNavHeight} from '../util/styleVars';
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -13,9 +13,8 @@ const Home = () => {
 
   return (
     <View style={{flex: 1}}>
-      {/* <Text onPress={clicked}>Authenticated</Text> */}
       <View style={styles.addIcon}>
-        <Icon name="plus-circle" color={colorPrimary.toString()} size={70} />
+        <Icon name="plus" color={colorWhite.toString()} size={30} />
       </View>
       <ScrollView />
     </View>
@@ -25,9 +24,15 @@ const Home = () => {
 const styles = StyleSheet.create({
   addIcon: {
     alignItems: 'center',
+    justifyContent: 'center',
     position: 'absolute',
     bottom: bottomNavHeight + 20,
+    backgroundColor: colorPrimary.toString(),
+    width: 70,
+    height: 70,
+    borderRadius: 70 / 2,
     right: 20,
+    elevation: 4,
   },
 });
 
