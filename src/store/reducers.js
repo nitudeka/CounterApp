@@ -4,12 +4,14 @@ import {
   resetAuth,
   authErrors,
   isAuthenticating,
+  activeScreen,
 } from './actions';
 
 const initialState = {
   authenticated: false,
   isAuthenticating: false,
   authErrors: [],
+  activeScreen: 'HomeScreen',
 };
 
 export default createReducer(initialState, {
@@ -29,5 +31,9 @@ export default createReducer(initialState, {
     ...state,
     isAuthenticating: false,
     authErrors: [],
+  }),
+  [activeScreen]: (state, action) => ({
+    ...state,
+    activeScreen: action.payload,
   }),
 });

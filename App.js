@@ -1,32 +1,21 @@
 import React, {useState, useEffect} from 'react';
 import {Provider, useSelector, useDispatch} from 'react-redux';
-import {StatusBar, View, Text} from 'react-native';
+import {StatusBar, View} from 'react-native';
 import 'react-native-gesture-handler';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import AsyncStorage from '@react-native-community/async-storage';
 import store from './src/store/store';
-import {authenticated, signout} from './src/store/actions';
+import {authenticated} from './src/store/actions';
 import {colorWhite} from './src/util/styleVars';
 import Register from './src/components/forms/Register';
 import Signin from './src/components/forms/Signin';
-import SplashScreen from './src/components/SplashScreen';
-import DefaultScreen from './src/components/DefaultScreen';
+import SplashScreen from './src/screens/SplashScreen';
+import DefaultScreen from './src/screens/DefaultScreen';
+import BottomNavbar from './src/components/navbar/BottomNavbar';
+import HomeScreen from './src/screens/HomeScreen';
 
 const Stack = createStackNavigator();
-
-const Home = () => {
-  const dispatch = useDispatch();
-  const clicked = () => {
-    dispatch(signout());
-  };
-
-  return (
-    <View>
-      <Text onPress={clicked}>Authenticated</Text>
-    </View>
-  );
-};
 
 const config = {
   animation: 'spring',
@@ -84,10 +73,11 @@ const App = () => {
           </>
         ) : (
           <>
-            <Stack.Screen name="Home" component={Home} />
+            <Stack.Screen name="HomeScreen" component={HomeScreen} />
           </>
         )}
       </Stack.Navigator>
+      <BottomNavbar />
     </NavigationContainer>
   );
 };

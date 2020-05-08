@@ -6,6 +6,7 @@ export const authenticated = createAction('authenticated');
 export const isAuthenticating = createAction('isAuthenticating');
 export const authErrors = createAction('authErrors');
 export const resetAuth = createAction('resetAuth');
+export const activeScreen = createAction('activeScreen');
 
 export const authenticate = (path, data) => async dispatch => {
   try {
