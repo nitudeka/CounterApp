@@ -9,6 +9,8 @@ import {colorPrimary, bottomNavHeight, colorWhite} from '../../util/styleVars';
 const Button = ({label, iconName, screenName, signoutBtn}) => {
   const dispatch = useDispatch();
   const activeScreenName = useSelector(state => state.activeScreen);
+  const bgColor = activeScreenName === screenName ? colorPrimary.darken(0.2).toString()
+  : colorPrimary.toString(),
 
   const handlePress = () => {
     if (signoutBtn) return dispatch(signout());
@@ -20,13 +22,7 @@ const Button = ({label, iconName, screenName, signoutBtn}) => {
     <TouchableOpacity
       activeOpacity={0.5}
       onPress={handlePress}
-      style={{
-        ...styles.container,
-        backgroundColor:
-          activeScreenName === screenName
-            ? colorPrimary.darken(0.2).toString()
-            : colorPrimary.toString(),
-      }}>
+      style={[styles.container, {backgroundColor: bgColor}]}>
       <Icon name={iconName} color="#fff" size={30} />
       <Text style={styles.text}>{label}</Text>
     </TouchableOpacity>

@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
-import {View, Text, TextInput, StyleSheet} from 'react-native';
+import {View, TextInput, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {colorBlack, colorPrimary, colorWhite} from '../../util/styleVars';
+import {colorBlack, colorWhite} from '../../util/styleVars';
 
 export default props => {
   const {placeHolder, type, onChangeText} = props;
@@ -10,7 +10,7 @@ export default props => {
   return (
     <View>
       <TextInput
-        style={{...styles.input, paddingRight: type === 'password' ? 43 : 12}}
+        style={[styles.input, {paddingRight: type === 'password' ? 43 : 12}]}
         onChangeText={onChangeText}
         textContentType={type}
         secureTextEntry={type === 'password' && isTextSecure}
