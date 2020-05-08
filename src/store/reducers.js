@@ -5,6 +5,7 @@ import {
   authErrors,
   isAuthenticating,
   activeScreen,
+  setExpenseStatus,
 } from './actions';
 
 const initialState = {
@@ -12,6 +13,7 @@ const initialState = {
   isAuthenticating: false,
   authErrors: [],
   activeScreen: 'HomeScreen',
+  expenseStatus: '',
 };
 
 export default createReducer(initialState, {
@@ -35,5 +37,9 @@ export default createReducer(initialState, {
   [activeScreen]: (state, action) => ({
     ...state,
     activeScreen: action.payload,
+  }),
+  [setExpenseStatus]: (state, action) => ({
+    ...state,
+    expenseStatus: action.payload,
   }),
 });

@@ -7,6 +7,7 @@ export const isAuthenticating = createAction('isAuthenticating');
 export const authErrors = createAction('authErrors');
 export const resetAuth = createAction('resetAuth');
 export const activeScreen = createAction('activeScreen');
+export const setExpenseStatus = createAction('setExpenseStatus');
 
 export const authenticate = (path, data) => async dispatch => {
   try {
@@ -34,4 +35,21 @@ export const authenticate = (path, data) => async dispatch => {
 export const signout = () => async dispatch => {
   await AsyncStorage.removeItem('token');
   dispatch(authenticated(false));
+};
+
+export const addExpense = data => async dispatch => {
+  try {
+    const token = await AsyncStorage.getItem('token');
+    const res = await fetch(API_URL + 'app/expense', {
+      method: 'POST',
+      headers: {'content-type': 'application/json', authorization: token},
+      body: JSON.stringify(data),
+    });
+    const resData = await res.json();
+    console.log(resData);
+    if (res.status === 200) {
+      dispatch(setExpenseStatus('added'));
+    } else {
+    }
+  } catch (err) {}
 };
