@@ -22,6 +22,24 @@ const config = {
   },
 };
 
+const AuthScreens = () => (
+  <>
+    <Stack.Screen
+      options={{headerShown: false}}
+      name="DefaultScreen"
+      component={DefaultScreen}
+    />
+    <Stack.Screen name="Register" component={Register} />
+    <Stack.Screen name="Signin" component={Signin} />
+  </>
+);
+
+const ProtectedScreens = () => (
+  <>
+    <Stack.Screen name="HomeScreen" component={HomeScreen} />
+  </>
+);
+
 const MainRoute = () => {
   const isAuthenticated = useSelector(state => state.authenticated);
 
@@ -34,21 +52,7 @@ const MainRoute = () => {
           close: config,
         },
       }}>
-      {!isAuthenticated ? (
-        <>
-          <Stack.Screen
-            options={{headerShown: false}}
-            name="DefaultScreen"
-            component={DefaultScreen}
-          />
-          <Stack.Screen name="Register" component={Register} />
-          <Stack.Screen name="Signin" component={Signin} />
-        </>
-      ) : (
-        <>
-          <Stack.Screen name="HomeScreen" component={HomeScreen} />
-        </>
-      )}
+      {isAuthenticated ? <ProtectedScreens /> : <AuthScreens />}
     </Stack.Navigator>
   );
 };

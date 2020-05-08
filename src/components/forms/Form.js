@@ -10,7 +10,6 @@ import {
 import {authenticate} from '../../store/actions';
 import {
   colorDanger,
-  colorBlack,
   colorWhite,
   colorIndigo,
   colorPrimary,
