@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import {useSelector} from 'react-redux';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import Calendar from '../components/calendar';
 import {
   colorPrimary,
   colorWhite,

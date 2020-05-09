@@ -29,11 +29,15 @@ export const authenticate = (path, data) => async dispatch => {
     const resData = await res.json();
     if (res.status === 200) {
       await AsyncStorage.setItem('token', resData.token);
-      dispatch(authenticated(true));
+      const auth = () => {
+        dispatch(authenticated(true));
+        dispatch(isAuthenticating(false));
+      };
+      dispatch(getExpenses(null, auth));
     } else {
       dispatch(authErrors([resData.message]));
+      dispatch(isAuthenticating(false));
     }
-    dispatch(isAuthenticating(false));
   } catch (err) {
     dispatch(isAuthenticating(false));
     dispatch(authErrors(['Something happened']));
@@ -59,7 +63,7 @@ export const addExpense = data => async dispatch => {
   }
 };
 
-export const getExpenses = setLoading => async dispatch => {
+export const getExpenses = (setLoading, auth) => async dispatch => {
   const token = await AsyncStorage.getItem('token');
   const res = await fetch(API_URL + 'app/expense?timestamp=' + Date.now(), {
     method: 'GET',
@@ -69,5 +73,6 @@ export const getExpenses = setLoading => async dispatch => {
   if (res.status === 200) {
     dispatch(setExpenses(resData.data));
     if (setLoading) setLoading(false);
+    if (auth) auth();
   }
 };
