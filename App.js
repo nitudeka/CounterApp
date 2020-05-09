@@ -4,6 +4,7 @@ import {StatusBar} from 'react-native';
 import 'react-native-gesture-handler';
 import {NavigationContainer} from '@react-navigation/native';
 import AsyncStorage from '@react-native-community/async-storage';
+import moment from 'moment';
 import store from './src/store/store';
 import {authenticated, getExpenses, navigationRef} from './src/store/actions';
 import {colorWhite} from './src/util/styleVars';
@@ -20,8 +21,12 @@ const App = () => {
   useEffect(() => {
     AsyncStorage.getItem('token').then(token => {
       if (token) {
+        const timestamp = moment(
+          moment(moment().valueOf()).format('DD-MM-YYYY'),
+          'DD-MM-YYYY',
+        ).valueOf();
         dispatch(authenticated(true));
-        dispatch(getExpenses(setLoading));
+        dispatch(getExpenses(timestamp, setLoading));
       } else {
         setLoading(false);
       }

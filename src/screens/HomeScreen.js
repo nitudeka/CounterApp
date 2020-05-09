@@ -55,6 +55,7 @@ const Home = ({navigation}) => {
 
   return (
     <View style={{flex: 1}}>
+      <Calendar />
       <ScrollView style={{flex: 1, marginBottom: bottomNavHeight + 15}}>
         {expenses.map((expense, i) => {
           const {item_name: itemName, price, quantity, unit} = expense;
@@ -106,6 +107,7 @@ const styles = StyleSheet.create({
   itemName: {
     fontSize: 25,
     color: colorPrimary.darken(0.1).toString(),
+    marginBottom: 5,
   },
   total: {
     backgroundColor: colorPrimary.darken(0.2).toString(),

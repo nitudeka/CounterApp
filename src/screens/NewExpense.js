@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {useDispatch} from 'react-redux';
+import moment from 'moment';
 import {addExpense} from '../store/actions';
 import Dropdown from '../components/dropdown';
 import {
@@ -42,12 +43,16 @@ const NewExpense = ({navigation}) => {
   const [unit, setUnit] = useState('Unit');
 
   const add = () => {
+    const timestamp = moment(
+      moment(moment().valueOf()).format('DD-MM-YYYY'),
+      'DD-MM-YYYY',
+    ).valueOf();
     dispatch(
       addExpense({
         itemName,
+        timestamp,
         price: Number(price),
         quantity: Number(quantity),
-        timestamp: Date.now(),
         unit: unit.toLowerCase(),
       }),
     );

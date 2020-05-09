@@ -33,7 +33,7 @@ export const authenticate = (path, data) => async dispatch => {
         dispatch(authenticated(true));
         dispatch(isAuthenticating(false));
       };
-      dispatch(getExpenses(null, auth));
+      dispatch(getExpenses(null, null, auth));
     } else {
       dispatch(authErrors([resData.message]));
       dispatch(isAuthenticating(false));
@@ -63,9 +63,10 @@ export const addExpense = data => async dispatch => {
   }
 };
 
-export const getExpenses = (setLoading, auth) => async dispatch => {
+export const getExpenses = (timestamp, setLoading, auth) => async dispatch => {
   const token = await AsyncStorage.getItem('token');
-  const res = await fetch(API_URL + 'app/expense?timestamp=' + Date.now(), {
+  console.log(timestamp);
+  const res = await fetch(API_URL + 'app/expense?timestamp=' + timestamp, {
     method: 'GET',
     headers: {'content-type': 'application/json', authorization: token},
   });
