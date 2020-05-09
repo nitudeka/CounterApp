@@ -7,8 +7,9 @@ import {
   TextInput,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import {addExpense} from '../store/actions';
+import Dropdown from '../components/dropdown';
 import {
   colorPrimary,
   colorWhite,
@@ -35,10 +36,10 @@ const Button = ({iconName, btnTxt, bgClr, onPress}) => {
 
 const NewExpense = ({navigation}) => {
   const dispatch = useDispatch();
-  const expenseStatus = useSelector(state => state.expenseStatus);
   const [itemName, setItemName] = useState('');
   const [price, setPrice] = useState('');
   const [quantity, setQuantity] = useState('');
+  const [unit, setUnit] = useState('Unit');
 
   const add = () => {
     dispatch(
@@ -47,6 +48,7 @@ const NewExpense = ({navigation}) => {
         price: Number(price),
         quantity: Number(quantity),
         timestamp: Date.now(),
+        unit: unit.toLowerCase(),
       }),
     );
   };
@@ -80,6 +82,7 @@ const NewExpense = ({navigation}) => {
           keyboardType="numeric"
           style={styles.input}
         />
+        <Dropdown selectedValue={unit} onChange={setUnit} />
         <View style={styles.actions}>
           <Button
             iconName="plus"

@@ -15,7 +15,7 @@ import {
   bottomNavHeight,
 } from '../util/styleVars';
 
-const Card = ({itemName, price, quantity}) => {
+const Card = ({itemName, price, quantity, unit = 'unit'}) => {
   return (
     <View style={styles.card}>
       <View style={styles.cardContainer}>
@@ -25,7 +25,9 @@ const Card = ({itemName, price, quantity}) => {
           <Text style={styles.price}>{price} </Text>
           <Text style={styles.small}>x </Text>
           <Text style={styles.price}>{quantity} </Text>
-          <Text style={styles.small}>Unit</Text>
+          <Text style={[styles.small, {textTransform: 'capitalize'}]}>
+            {unit}
+          </Text>
         </View>
       </View>
       <View style={styles.total}>
@@ -33,7 +35,7 @@ const Card = ({itemName, price, quantity}) => {
           <Text
             style={[
               styles.small,
-              {color: colorWhite.toString(), marginBottom: 2, marginRight: 4},
+              {color: colorWhite.toString(), marginBottom: 3, marginRight: 4},
             ]}>
             ₹
           </Text>
@@ -52,7 +54,7 @@ const Home = ({navigation}) => {
 
   return (
     <View style={{flex: 1}}>
-      <ScrollView style={{flex: 1}}>
+      <ScrollView style={{flex: 1, marginBottom: bottomNavHeight + 15}}>
         {expenses.map((expense, i) => {
           const {item_name: itemName, price, quantity} = expense;
           return (
