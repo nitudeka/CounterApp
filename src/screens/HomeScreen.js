@@ -56,13 +56,14 @@ const Home = ({navigation}) => {
     <View style={{flex: 1}}>
       <ScrollView style={{flex: 1, marginBottom: bottomNavHeight + 15}}>
         {expenses.map((expense, i) => {
-          const {item_name: itemName, price, quantity} = expense;
+          const {item_name: itemName, price, quantity, unit} = expense;
           return (
             <Card
               key={i}
               itemName={itemName}
               price={price}
               quantity={quantity}
+              unit={unit}
             />
           );
         })}

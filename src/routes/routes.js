@@ -4,6 +4,7 @@ import {
   createStackNavigator,
   CardStyleInterpolators,
 } from '@react-navigation/stack';
+import moment from 'moment';
 
 // Screens
 import DefaultScreen from '../screens/DefaultScreen';
@@ -40,7 +41,11 @@ const AuthScreens = (
 
 const ProtectedScreens = (
   <>
-    <Stack.Screen name="HomeScreen" component={HomeScreen} />
+    <Stack.Screen
+      options={{headerShown: false}}
+      name="HomeScreen"
+      component={HomeScreen}
+    />
     <Stack.Screen name="NewExpense" component={NewExpense} />
   </>
 );

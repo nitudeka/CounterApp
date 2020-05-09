@@ -46,34 +46,28 @@ export const signout = () => async dispatch => {
 };
 
 export const addExpense = data => async dispatch => {
-  try {
-    const token = await AsyncStorage.getItem('token');
-    const res = await fetch(API_URL + 'app/expense', {
-      method: 'POST',
-      headers: {'content-type': 'application/json', authorization: token},
-      body: JSON.stringify(data),
-    });
-    const resData = await res.json();
-    if (res.status === 200) {
-      getExpenses()(dispatch);
-    } else {
-      // dispatch(navigate('HomeScreen'));
-    }
-  } catch (err) {}
+  const token = await AsyncStorage.getItem('token');
+  const res = await fetch(API_URL + 'app/expense', {
+    method: 'POST',
+    headers: {'content-type': 'application/json', authorization: token},
+    body: JSON.stringify(data),
+  });
+  const resData = await res.json();
+  if (res.status === 200) {
+    dispatch(setExpenses(resData.data));
+    navigate('HomeScreen');
+  }
 };
 
-export const getExpenses = () => async dispatch => {
-  try {
-    const token = await AsyncStorage.getItem('token');
-    const res = await fetch(API_URL + 'app/expense?timestamp=' + Date.now(), {
-      method: 'GET',
-      headers: {'content-type': 'application/json', authorization: token},
-    });
-    const resData = await res.json();
-    if (res.status === 200) {
-      dispatch(setExpenses(resData.data));
-      dispatch(navigate('HomeScreen'));
-    } else {
-    }
-  } catch (err) {}
+export const getExpenses = setLoading => async dispatch => {
+  const token = await AsyncStorage.getItem('token');
+  const res = await fetch(API_URL + 'app/expense?timestamp=' + Date.now(), {
+    method: 'GET',
+    headers: {'content-type': 'application/json', authorization: token},
+  });
+  const resData = await res.json();
+  if (res.status === 200) {
+    dispatch(setExpenses(resData.data));
+    if (setLoading) setLoading(false);
+  }
 };

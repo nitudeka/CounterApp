@@ -21,9 +21,10 @@ const App = () => {
     AsyncStorage.getItem('token').then(token => {
       if (token) {
         dispatch(authenticated(true));
-        dispatch(getExpenses());
+        dispatch(getExpenses(setLoading));
+      } else {
+        setLoading(false);
       }
-      setLoading(false);
     });
   });
 
