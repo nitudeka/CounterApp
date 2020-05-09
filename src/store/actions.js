@@ -1,14 +1,21 @@
+import {createRef} from 'react';
 import {createAction} from '@reduxjs/toolkit';
 import {API_URL} from 'react-native-dotenv';
 import AsyncStorage from '@react-native-community/async-storage';
+
+export const navigationRef = createRef();
 
 export const authenticated = createAction('authenticated');
 export const isAuthenticating = createAction('isAuthenticating');
 export const authErrors = createAction('authErrors');
 export const resetAuth = createAction('resetAuth');
 export const activeScreen = createAction('activeScreen');
-export const setExpenseStatus = createAction('setExpenseStatus');
 export const setExpenses = createAction('setExpenses');
+
+export const navigate = screenName => {
+  navigationRef.current?.navigate(screenName);
+  activeScreen(screenName);
+};
 
 export const authenticate = (path, data) => async dispatch => {
   try {
@@ -48,8 +55,9 @@ export const addExpense = data => async dispatch => {
     });
     const resData = await res.json();
     if (res.status === 200) {
-      dispatch(setExpenseStatus('added'));
+      getExpenses()(dispatch);
     } else {
+      // dispatch(navigate('HomeScreen'));
     }
   } catch (err) {}
 };
@@ -64,6 +72,7 @@ export const getExpenses = () => async dispatch => {
     const resData = await res.json();
     if (res.status === 200) {
       dispatch(setExpenses(resData.data));
+      dispatch(navigate('HomeScreen'));
     } else {
     }
   } catch (err) {}

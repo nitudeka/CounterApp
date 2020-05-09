@@ -3,7 +3,7 @@ import {TouchableOpacity, Text, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {useSelector, useDispatch} from 'react-redux';
 import {signout, activeScreen} from '../../store/actions';
-import {navigationRef} from './BottomNavbar';
+import {navigate} from '../../store/actions';
 import {colorPrimary, bottomNavHeight, colorWhite} from '../../util/styleVars';
 
 const Button = ({label, iconName, screenName, signoutBtn}) => {
@@ -16,8 +16,7 @@ const Button = ({label, iconName, screenName, signoutBtn}) => {
 
   const handlePress = () => {
     if (signoutBtn) return dispatch(signout());
-    navigationRef.current?.navigate(screenName);
-    dispatch(activeScreen(screenName));
+    navigate(screenName);
   };
 
   return (

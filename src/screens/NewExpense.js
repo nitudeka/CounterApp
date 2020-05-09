@@ -53,12 +53,6 @@ const NewExpense = ({navigation}) => {
     );
   };
 
-  const discard = () => {
-    setItemName('');
-    setPrice('');
-    setQuantity('');
-  };
-
   return (
     <View style={styles.container}>
       <View style={styles.card}>
@@ -91,16 +85,10 @@ const NewExpense = ({navigation}) => {
             onPress={add}
           />
           <Button
-            iconName="window-close"
-            btnTxt="Cancel"
-            bgClr={colorDanger.toString()}
-            onPress={navigation.goBack}
-          />
-          <Button
             iconName="trash"
             btnTxt="Discard"
-            bgClr={colorBlack.toString()}
-            onPress={discard}
+            bgClr={colorDanger.toString()}
+            onPress={navigation.goBack}
           />
         </View>
       </View>

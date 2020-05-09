@@ -5,12 +5,10 @@ import 'react-native-gesture-handler';
 import {NavigationContainer} from '@react-navigation/native';
 import AsyncStorage from '@react-native-community/async-storage';
 import store from './src/store/store';
-import {authenticated, getExpenses} from './src/store/actions';
+import {authenticated, getExpenses, navigationRef} from './src/store/actions';
 import {colorWhite} from './src/util/styleVars';
 import SplashScreen from './src/screens/SplashScreen';
-import BottomNavbar, {
-  navigationRef,
-} from './src/components/navbar/BottomNavbar';
+import BottomNavbar from './src/components/navbar/BottomNavbar';
 import MainRoute from './src/routes/routes';
 
 const App = () => {

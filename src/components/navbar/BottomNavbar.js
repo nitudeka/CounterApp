@@ -1,9 +1,7 @@
-import React, {createRef} from 'react';
+import React from 'react';
 import {View, StyleSheet, Dimensions} from 'react-native';
 import Button from './Button';
 import {colorPrimary, colorWhite} from '../../util/styleVars';
-
-export const navigationRef = createRef();
 
 const BottomNavbar = () => {
   return (
