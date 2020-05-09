@@ -96,7 +96,7 @@ const Home = ({navigation}) => {
         <ScrollView
           style={{
             flex: 1,
-            marginBottom: bottomNavHeight + 15,
+            marginBottom: bottomNavHeight,
           }}>
           {expenses.map((expense, i) => {
             const {item_name: itemName, price, quantity, unit} = expense;
@@ -140,7 +140,7 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     backgroundColor: colorWhite.toString(),
     marginHorizontal: 10,
-    marginTop: 15,
+    marginBottom: 15,
   },
   cardContainer: {
     padding: 10,
