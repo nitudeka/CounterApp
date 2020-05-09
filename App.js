@@ -5,7 +5,7 @@ import 'react-native-gesture-handler';
 import {NavigationContainer} from '@react-navigation/native';
 import AsyncStorage from '@react-native-community/async-storage';
 import store from './src/store/store';
-import {authenticated} from './src/store/actions';
+import {authenticated, getExpenses} from './src/store/actions';
 import {colorWhite} from './src/util/styleVars';
 import SplashScreen from './src/screens/SplashScreen';
 import BottomNavbar, {
@@ -23,6 +23,7 @@ const App = () => {
     AsyncStorage.getItem('token').then(token => {
       if (token) {
         dispatch(authenticated(true));
+        dispatch(getExpenses());
       }
       setLoading(false);
     });
