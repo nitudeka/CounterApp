@@ -20,20 +20,22 @@ const Card = ({itemName, price, quantity}) => {
     <View style={styles.card}>
       <View style={styles.cardContainer}>
         <Text style={styles.itemName}>{itemName}</Text>
-        <Text style={styles.price}>
-          ₹ {price} x {quantity} Bottle
-        </Text>
+        <View style={{flexDirection: 'row', alignItems: 'flex-end'}}>
+          <Text style={[styles.small]}>₹ </Text>
+          <Text style={styles.price}>{price} </Text>
+          <Text style={styles.small}>x </Text>
+          <Text style={styles.price}>{quantity} </Text>
+          <Text style={styles.small}>Unit</Text>
+        </View>
       </View>
       <View style={styles.total}>
         <View style={{flexDirection: 'row', alignItems: 'flex-end'}}>
           <Text
-            style={{
-              fontWeight: '700',
-              fontSize: 10,
-              color: colorWhite.toString(),
-              marginBottom: 3,
-            }}>
-            ₹{' '}
+            style={[
+              styles.small,
+              {color: colorWhite.toString(), marginBottom: 2, marginRight: 4},
+            ]}>
+            ₹
           </Text>
           <Text style={styles.totalPrice}>{price * quantity}</Text>
         </View>
@@ -101,11 +103,6 @@ const styles = StyleSheet.create({
     fontSize: 25,
     color: colorPrimary.darken(0.1).toString(),
   },
-  price: {
-    fontWeight: '700',
-    marginTop: 5,
-    color: colorBlack.fade(0.3).toString(),
-  },
   total: {
     backgroundColor: colorPrimary.darken(0.2).toString(),
     flexDirection: 'row',
@@ -115,6 +112,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderTopRightRadius: 4,
     borderBottomRightRadius: 4,
+  },
+  small: {
+    fontSize: 12,
+    marginBottom: 1,
+    color: colorBlack.fade(0.2).toString(),
+  },
+  price: {
+    fontWeight: '700',
+    fontSize: 15,
   },
   totalPrice: {
     color: colorWhite.toString(),
