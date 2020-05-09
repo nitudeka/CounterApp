@@ -7,6 +7,7 @@ import {
   activeScreen,
   setExpenseStatus,
   setExpenses,
+  setAddingExpense,
 } from './actions';
 
 const initialState = {
@@ -16,6 +17,7 @@ const initialState = {
   activeScreen: 'HomeScreen',
   expenseStatus: '',
   expenses: [],
+  addingExpense: false,
 };
 
 export default createReducer(initialState, {
@@ -47,5 +49,9 @@ export default createReducer(initialState, {
   [setExpenses]: (state, action) => ({
     ...state,
     expenses: action.payload,
+  }),
+  [setAddingExpense]: (state, action) => ({
+    ...state,
+    addingExpense: action.payload,
   }),
 });

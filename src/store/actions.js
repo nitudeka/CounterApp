@@ -11,6 +11,7 @@ export const authErrors = createAction('authErrors');
 export const resetAuth = createAction('resetAuth');
 export const activeScreen = createAction('activeScreen');
 export const setExpenses = createAction('setExpenses');
+export const setAddingExpense = createAction('setAddingExpense');
 
 export const navigate = screenName => {
   navigationRef.current?.navigate(screenName);
@@ -50,6 +51,7 @@ export const signout = () => async dispatch => {
 };
 
 export const addExpense = data => async dispatch => {
+  dispatch(setAddingExpense(true));
   const token = await AsyncStorage.getItem('token');
   const res = await fetch(API_URL + 'app/expense', {
     method: 'POST',
@@ -57,6 +59,7 @@ export const addExpense = data => async dispatch => {
     body: JSON.stringify(data),
   });
   const resData = await res.json();
+  dispatch(setAddingExpense(false));
   if (res.status === 200) {
     dispatch(setExpenses(resData.data));
     navigate('HomeScreen');
@@ -65,7 +68,6 @@ export const addExpense = data => async dispatch => {
 
 export const getExpenses = (timestamp, setLoading, auth) => async dispatch => {
   const token = await AsyncStorage.getItem('token');
-  console.log(timestamp);
   const res = await fetch(API_URL + 'app/expense?timestamp=' + timestamp, {
     method: 'GET',
     headers: {'content-type': 'application/json', authorization: token},

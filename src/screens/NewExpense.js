@@ -5,9 +5,10 @@ import {
   Text,
   TouchableOpacity,
   TextInput,
+  ActivityIndicator,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import moment from 'moment';
 import {addExpense} from '../store/actions';
 import Dropdown from '../components/dropdown';
@@ -37,6 +38,7 @@ const Button = ({iconName, btnTxt, bgClr, onPress}) => {
 
 const NewExpense = ({navigation}) => {
   const dispatch = useDispatch();
+  const addingExpense = useSelector(state => state.addingExpense);
   const [itemName, setItemName] = useState('');
   const [price, setPrice] = useState('');
   const [quantity, setQuantity] = useState('');
@@ -61,6 +63,13 @@ const NewExpense = ({navigation}) => {
   return (
     <View style={styles.container}>
       <View style={styles.card}>
+        {addingExpense && (
+          <ActivityIndicator
+            style={styles.loader}
+            size="large"
+            color={colorPrimary.toString()}
+          />
+        )}
         <TextInput
           value={itemName}
           onChangeText={text => setItemName(text)}
@@ -103,6 +112,15 @@ const NewExpense = ({navigation}) => {
 
 const styles = StyleSheet.create({
   container: {},
+  loader: {
+    margin: 15,
+    backgroundColor: colorWhite.fade(0.2).toString(),
+    flex: 1,
+    width: '100%',
+    height: '100%',
+    position: 'absolute',
+    zIndex: 100,
+  },
   btn: {
     paddingVertical: 10,
     flexDirection: 'row',
