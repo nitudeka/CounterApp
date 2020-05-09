@@ -5,6 +5,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   ScrollView,
+  ActivityIndicator,
 } from 'react-native';
 import {useSelector} from 'react-redux';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -49,27 +50,55 @@ const Card = ({itemName, price, quantity, unit = 'unit'}) => {
 
 const Home = ({navigation}) => {
   const expenses = useSelector(state => state.expenses);
+  const fetchingExpenses = useSelector(state => state.fetchingExpenses);
   const add = () => {
     navigation.navigate('NewExpense');
   };
+  console.log(fetchingExpenses);
 
   return (
     <View style={{flex: 1}}>
       <Calendar />
-      <ScrollView style={{flex: 1, marginBottom: bottomNavHeight + 15}}>
-        {expenses.map((expense, i) => {
-          const {item_name: itemName, price, quantity, unit} = expense;
-          return (
-            <Card
-              key={i}
-              itemName={itemName}
-              price={price}
-              quantity={quantity}
-              unit={unit}
-            />
-          );
-        })}
-      </ScrollView>
+      {fetchingExpenses && (
+        <View style={styles.loader}>
+          <ActivityIndicator
+            style={styles.loader}
+            size="large"
+            color={colorPrimary.toString()}
+          />
+        </View>
+      )}
+      {!expenses.length && !fetchingExpenses && (
+        <View style={styles.noData}>
+          <Text
+            style={{
+              color: colorBlack.fade(0.3).toString(),
+              fontSize: 40,
+            }}>
+            No data
+          </Text>
+        </View>
+      )}
+      {!fetchingExpenses && Boolean(expenses.length) && (
+        <ScrollView
+          style={{
+            flex: 1,
+            marginBottom: bottomNavHeight + 15,
+          }}>
+          {expenses.map((expense, i) => {
+            const {item_name: itemName, price, quantity, unit} = expense;
+            return (
+              <Card
+                key={i}
+                itemName={itemName}
+                price={price}
+                quantity={quantity}
+                unit={unit}
+              />
+            );
+          })}
+        </ScrollView>
+      )}
       <TouchableOpacity
         activeOpacity={0.5}
         onPress={add}
@@ -132,6 +161,16 @@ const styles = StyleSheet.create({
     color: colorWhite.toString(),
     fontSize: 20,
     fontWeight: '700',
+  },
+  loader: {
+    flex: 1,
+    marginBottom: bottomNavHeight,
+  },
+  noData: {
+    marginBottom: bottomNavHeight,
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 

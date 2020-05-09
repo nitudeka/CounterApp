@@ -8,6 +8,7 @@ import {
   setExpenseStatus,
   setExpenses,
   setAddingExpense,
+  setFetchingExpenses,
 } from './actions';
 
 const initialState = {
@@ -18,6 +19,7 @@ const initialState = {
   expenseStatus: '',
   expenses: [],
   addingExpense: false,
+  fetchingExpenses: false,
 };
 
 export default createReducer(initialState, {
@@ -53,5 +55,9 @@ export default createReducer(initialState, {
   [setAddingExpense]: (state, action) => ({
     ...state,
     addingExpense: action.payload,
+  }),
+  [setFetchingExpenses]: (state, action) => ({
+    ...state,
+    fetchingExpenses: action.payload,
   }),
 });

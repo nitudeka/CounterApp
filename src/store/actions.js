@@ -12,6 +12,7 @@ export const resetAuth = createAction('resetAuth');
 export const activeScreen = createAction('activeScreen');
 export const setExpenses = createAction('setExpenses');
 export const setAddingExpense = createAction('setAddingExpense');
+export const setFetchingExpenses = createAction('setFetchingExpenses');
 
 export const navigate = screenName => {
   navigationRef.current?.navigate(screenName);
@@ -67,6 +68,7 @@ export const addExpense = data => async dispatch => {
 };
 
 export const getExpenses = (timestamp, setLoading, auth) => async dispatch => {
+  dispatch(setFetchingExpenses(true));
   const token = await AsyncStorage.getItem('token');
   const res = await fetch(API_URL + 'app/expense?timestamp=' + timestamp, {
     method: 'GET',
@@ -75,6 +77,7 @@ export const getExpenses = (timestamp, setLoading, auth) => async dispatch => {
   const resData = await res.json();
   if (res.status === 200) {
     dispatch(setExpenses(resData.data));
+    dispatch(setFetchingExpenses(false));
     if (setLoading) setLoading(false);
     if (auth) auth();
   }
