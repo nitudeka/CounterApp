@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -50,22 +50,31 @@ const Card = ({itemName, price, quantity, unit = 'unit'}) => {
 
 const Home = ({navigation}) => {
   const expenses = useSelector(state => state.expenses);
+  const totalSpent = useSelector(state => state.totalSpent);
   const fetchingExpenses = useSelector(state => state.fetchingExpenses);
   const add = () => {
     navigation.navigate('NewExpense');
   };
-  console.log(fetchingExpenses);
 
   return (
     <View style={{flex: 1}}>
       <Calendar />
+      <View style={styles.totalContainer}>
+        <Text style={styles.totalSpentText}>Total spent today:</Text>
+        <View style={{flexDirection: 'row', alignItems: 'flex-end'}}>
+          <Text
+            style={[
+              styles.small,
+              {color: colorWhite.toString(), marginBottom: 3, marginRight: 4},
+            ]}>
+            ₹
+          </Text>
+          <Text style={styles.totalPrice}>{totalSpent}</Text>
+        </View>
+      </View>
       {fetchingExpenses && (
         <View style={styles.loader}>
-          <ActivityIndicator
-            style={styles.loader}
-            size="large"
-            color={colorPrimary.toString()}
-          />
+          <ActivityIndicator size="large" color={colorPrimary.toString()} />
         </View>
       )}
       {!expenses.length && !fetchingExpenses && (
@@ -75,7 +84,11 @@ const Home = ({navigation}) => {
               color: colorBlack.fade(0.3).toString(),
               fontSize: 40,
             }}>
-            No data
+            <Icon
+              name="folder-open"
+              color={colorBlack.fade(0.2).toString()}
+              size={100}
+            />
           </Text>
         </View>
       )}
@@ -165,12 +178,27 @@ const styles = StyleSheet.create({
   loader: {
     flex: 1,
     marginBottom: bottomNavHeight,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   noData: {
     marginBottom: bottomNavHeight,
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  totalSpentText: {
+    textTransform: 'uppercase',
+    color: colorWhite.toString(),
+  },
+  totalContainer: {
+    padding: 15,
+    borderRadius: 4,
+    backgroundColor: colorPrimary.darken(0.3).toString(),
+    flexDirection: 'row',
+    margin: 10,
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
 });
 

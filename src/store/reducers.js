@@ -20,6 +20,7 @@ const initialState = {
   expenses: [],
   addingExpense: false,
   fetchingExpenses: false,
+  totalSpent: 0,
 };
 
 export default createReducer(initialState, {
@@ -50,7 +51,8 @@ export default createReducer(initialState, {
   }),
   [setExpenses]: (state, action) => ({
     ...state,
-    expenses: action.payload,
+    expenses: action.payload.expenses,
+    totalSpent: action.payload.totalSpent,
   }),
   [setAddingExpense]: (state, action) => ({
     ...state,

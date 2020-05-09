@@ -51,6 +51,12 @@ export const signout = () => async dispatch => {
   dispatch(authenticated(false));
 };
 
+const getTotalExpense = expenses => {
+  return expenses.reduce((a, b) => {
+    return a + b.price * b.quantity;
+  }, 0);
+};
+
 export const addExpense = data => async dispatch => {
   dispatch(setAddingExpense(true));
   const token = await AsyncStorage.getItem('token');
@@ -62,7 +68,12 @@ export const addExpense = data => async dispatch => {
   const resData = await res.json();
   dispatch(setAddingExpense(false));
   if (res.status === 200) {
-    dispatch(setExpenses(resData.data));
+    dispatch(
+      setExpenses({
+        expenses: resData.data,
+        totalSpent: getTotalExpense(resData.data),
+      }),
+    );
     navigate('HomeScreen');
   }
 };
@@ -76,7 +87,12 @@ export const getExpenses = (timestamp, setLoading, auth) => async dispatch => {
   });
   const resData = await res.json();
   if (res.status === 200) {
-    dispatch(setExpenses(resData.data));
+    dispatch(
+      setExpenses({
+        expenses: resData.data,
+        totalSpent: getTotalExpense(resData.data),
+      }),
+    );
     dispatch(setFetchingExpenses(false));
     if (setLoading) setLoading(false);
     if (auth) auth();
